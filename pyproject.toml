@@ -1,0 +1,9 @@
+[project]
+name = "hr-pulse"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "azure-ai-textanalytics>=5.3.0",
+]
