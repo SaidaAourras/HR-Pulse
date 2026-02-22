@@ -1,3 +1,4 @@
+```bash 
 HR-PULSE-BACKEND/
 │
 ├── .github/
@@ -53,3 +54,4 @@ HR-PULSE-BACKEND/
 ├── pyproject.toml
 ├── .env
 └── .env.example
+```
