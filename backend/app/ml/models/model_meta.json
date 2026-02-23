@@ -1,16 +1,11 @@
 {
   "model": "RandomForest",
-  "desc_col": "job_description_clean",
-  "title_col": "job_title_clean",
   "cat_cols": [
     "sector",
     "size",
     "type_of_ownership",
     "state"
   ],
-  "tfidf_desc_features": 200,
-  "tfidf_title_features": 50,
-  "target": "salary_avg_k",
   "mae_k": 27.21,
   "r2": -0.099,
   "salary_mean": 123.7,
