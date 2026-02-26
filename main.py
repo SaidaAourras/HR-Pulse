@@ -5,6 +5,7 @@ from sqlalchemy.exc import OperationalError
 from backend.app.api.db.database import engine, Base
 from backend.app.api.routes.jobs import job_router
 from backend.app.api.routes.predict import predict_router
+from backend.app.api.routes.auth import auth_router
 
 
 def init_db():
@@ -33,8 +34,10 @@ app.add_middleware(
 def on_startup():
     init_db()
 
+app.include_router(auth_router)
 app.include_router(job_router)
 app.include_router(predict_router)
+
 
 @app.get("/")
 def root():
