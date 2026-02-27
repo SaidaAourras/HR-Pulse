@@ -1,0 +1,44 @@
+services:
+
+  backend:
+    build: .
+    container_name: hr-pulse-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql+psycopg2://postgres:postgres@db:5432/hr_pulse
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./data:/app/data
+      - ./backend/app/ml/models:/app/backend/app/ml/models
+
+  db:
+    image: postgres:15-alpine
+    container_name: hr-pulse-db
+    environment:
+      POSTGRES_USER:     postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB:       hr_pulse
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: hr-pulse-jaeger
+    ports:
+      - "16686:16686"
+      - "4317:4317"
+
+volumes:
+  postgres_data:
