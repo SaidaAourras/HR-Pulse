@@ -1,0 +1,48 @@
+[project]
+name = "hr-pulse"
+version = "0.1.0"
+description = "HR-Pulse API - Salary prediction and job analysis"
+requires-python = ">=3.11"
+
+# Dependances API (utilisees dans Docker)
+dependencies = [
+    "fastapi>=0.133.0",
+    "uvicorn>=0.41.0",
+    "sqlalchemy>=2.0.46",
+    "psycopg2-binary>=2.9.11",
+    "pandas>=3.0.1",
+    "numpy>=2.4.2",
+    "scikit-learn>=1.8.0",
+    "joblib>=1.5.3",
+    "scipy>=1.15.0",
+    "pydantic[email]>=2.12.5",
+    "python-dotenv>=1.2.1",
+    "python-jose[cryptography]>=3.5.0",
+    "pwdlib[argon2]>=0.3.0",
+]
+
+# Dependances pipeline (NER, nettoyage) — PAS dans Docker
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.0.2",
+    "ruff>=0.15.4",
+]
+pipeline = [
+    "spacy>=3.8.11",
+    "en-core-web-lg",
+    "azure-ai-textanalytics>=5.3.0",
+    "matplotlib>=3.10.8",
+    "seaborn>=0.13.2",
+    "pyodbc>=5.3.0",
+]
+
+[tool.uv.sources]
+en-core-web-lg = { url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.8.0/en_core_web_lg-3.8.0-py3-none-any.whl" }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["backend"]

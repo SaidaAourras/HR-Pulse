@@ -1,0 +1,17 @@
+# ruff.toml — configuration Ruff
+line-length = 100
+
+[lint]
+select = ["E", "F", "W"]
+ignore = [
+    "E501",  # line too long (géré par line-length)
+    "F401",  # unused import (parfois utile)
+]
+
+exclude = [
+    ".venv",
+    "__pycache__",
+    "*.ipynb",
+    "migrations/",
+    "data/",
+]

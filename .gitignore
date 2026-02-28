@@ -1,0 +1,7 @@
+terraform/
+.venv
+.env
+__pycache__/
+*.pyc
+setup_project.bat
+data/*.csv
