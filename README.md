@@ -91,7 +91,7 @@ backend/app/
 
 ```bash
 # 1. Cloner le repo
-git clone https://github.com/votre-org/HR-Pulse_backend.git
+git clone https://github.com/SaidaAourras/HR-Pulse_backend.git
 cd HR-Pulse_backend
 
 # 2. Installer les dépendances API
