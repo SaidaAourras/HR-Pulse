@@ -14,5 +14,4 @@ class JobResponse(BaseModel):
     skills_extracted : Optional[List[str]] = []  # ← List[str] pas str
 
     model_config = {"from_attributes": True}
-    
-    
+

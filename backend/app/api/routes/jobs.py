@@ -8,7 +8,7 @@ from backend.app.api.db.schemas.job import JobResponse
 from sqlalchemy import cast, String
 
 # Import de la validation JWT (ajuste le chemin si nécessaire)
-from backend.app.services.auth_services import verify_token 
+from backend.app.services.auth_services import verify_token
 
 job_router = APIRouter(prefix="/jobs" , tags=["Jobs"])
 
@@ -17,7 +17,7 @@ def list_jobs(
     page : int = Query(1,  ge=1),
     limit: int = Query(20, le=100),
     db: Session = Depends(get_db),
-    current_user: dict = Depends(verify_token) 
+    current_user: dict = Depends(verify_token)
 ):
     offset = (page - 1) * limit
     return db.query(JobModel).order_by(JobModel.id).limit(limit).offset(offset).all()
@@ -54,7 +54,7 @@ def top_skills(
 
 @job_router.get("/{job_id}", response_model=JobResponse)
 def get_job(
-    job_id: int, 
+    job_id: int,
     db: Session = Depends(get_db),
     current_user: dict = Depends(verify_token) # Ajout JWT
 ):

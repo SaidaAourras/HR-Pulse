@@ -1,6 +1,8 @@
-import json, sys
 from pathlib import Path
-import joblib, pandas as pd
+import json
+import sys
+import joblib
+import pandas as pd
 from scipy.sparse import csr_matrix, hstack
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -18,7 +20,7 @@ df = pd.read_csv(sys.argv[1] if len(sys.argv) > 1 else INPUT_CSV)
 for col in CAT_COLS:
     df[col] = df[col].fillna("Unknown")
 
-# ── Features 
+# ── Features
 tfidf_desc  = TfidfVectorizer(max_features=200, stop_words="english", ngram_range=(1,2))
 tfidf_title = TfidfVectorizer(max_features=50,  stop_words="english", ngram_range=(1,2))
 encoder     = OrdinalEncoder(handle_unknown="use_encoded_value", unknown_value=-1)
@@ -31,19 +33,19 @@ X = hstack([
 y = df[TARGET]
 print(f"Features : {X.shape} ")
 
-# ── Split + Train 
+# ── Split + Train
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 model = RandomForestRegressor(n_estimators=200, max_depth=10, min_samples_leaf=5, random_state=42, n_jobs=-1)
 model.fit(X_train, y_train)
 
-# ── Évaluation 
+# ── Évaluation
 y_pred = model.predict(X_test)
 mae = mean_absolute_error(y_test, y_pred)
 r2  = r2_score(y_test, y_pred)
 print(f"MAE : {mae:.1f} K$  |  R² : {r2:.3f}")
 
-# ── Sauvegarder 
+# ── Sauvegarder
 MODELS_DIR.mkdir(parents=True, exist_ok=True)
 joblib.dump(model,       MODELS_DIR / "model.pkl")
 joblib.dump(tfidf_desc,  MODELS_DIR / "tfidf_desc.pkl")

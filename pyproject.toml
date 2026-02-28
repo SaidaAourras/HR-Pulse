@@ -23,6 +23,11 @@ dependencies = [
 
 # Dependances pipeline (NER, nettoyage) — PAS dans Docker
 [dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.0.2",
+    "ruff>=0.15.4",
+]
 pipeline = [
     "spacy>=3.8.11",
     "en-core-web-lg",
