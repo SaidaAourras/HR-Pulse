@@ -14,10 +14,10 @@ job_router = APIRouter(prefix="/jobs" , tags=["Jobs"])
 
 @job_router.get("/", response_model=list[JobResponse])
 def list_jobs(
-    page: int, 
-    limit: int, 
+    page : int = Query(1,  ge=1),
+    limit: int = Query(20, le=100),
     db: Session = Depends(get_db),
-    current_user: dict = Depends(verify_token) # Ajout JWT
+    current_user: dict = Depends(verify_token) 
 ):
     offset = (page - 1) * limit
     return db.query(JobModel).order_by(JobModel.id).limit(limit).offset(offset).all()
@@ -38,7 +38,7 @@ def search_jobs(
 
 @job_router.get("/skills/top/")
 def top_skills(
-    n: int, 
+    n: int = Query(20, ge=1, le=100),
     db: Session = Depends(get_db),
     current_user: dict = Depends(verify_token) # Ajout JWT
 ):
