@@ -3,6 +3,5 @@ terraform/
 .env
 __pycache__/
 *.pyc
-uv.lock
 setup_project.bat
 data/*.csv
